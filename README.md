@@ -12,9 +12,9 @@ Check [here](https://guestbook.emmynem.com/) for live demo
 # Routes
 
 ## Auth Routes
-Login for Admin visit `GET` - ```/api/auth/backoffice/signin```
+Login for Admin visit `POST` - ```/api/auth/backoffice/signin```
 
-Signup for Guest visit `GET` -  ```/api/guest/signup```
+Signup for Guest visit `POST` -  ```/api/guest/signup```
 
 ## Admin Routes
 Get Admins visit `GET` -  ```/api/backoffice/admins``` **requires authentication
