@@ -2,7 +2,7 @@
 This is an API for a guest book application for GamePride Ltd software developer assessment
 
 # Live demo
-Check [here](https://emmynem.com/quizapp-sequelize-api/) for live demo
+Check [here](https://guestbook.emmynem.com/) for live demo
 
 ### Default Admin Details
 `email` - `johndoe@example.com`
