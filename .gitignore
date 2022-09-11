@@ -10,8 +10,8 @@ lerna-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 ## build folder
-dist-app
 build
+/dist-server
 
 # Runtime data
 pids

@@ -2,7 +2,7 @@ import express, { json, urlencoded } from "express";
 import path from 'path';
 import cors from "cors";
 import helmet from "helmet";
-import { logger, SuccessResponse } from './common';
+import { SuccessResponse } from './common';
 import morganMiddleware from "./middleware/morgan";
 import db from "./models";
 import { createAdmin } from './config/default.config';
@@ -36,11 +36,9 @@ app.get("/", (request, response) => {
 })
 
 // Sequelize initialization
-const dropAndResync = false;
-db.sequelize.sync({ force: dropAndResync })
-.then(() => {
-    createAdmin(dropAndResync); 
-    if(dropAndResync) logger.warn('Drop and Resync Db with defaults');
+db.sequelize.sync().then(() => {
+    // creating defaults
+    createAdmin();
 });
 
 app.use(express.static(path.join(__dirname, '../public')));
@@ -50,11 +48,7 @@ adminRoutes(app);
 authRoutes(app);
 guestsRoutes(app);
 
-// // set port, listen for requests
-// const PORT = process.env.PORT || 808;
-
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}.`)
-// })
+// change timezone for app
+process.env.TZ = "Africa/Lagos";
 
 export default app;
