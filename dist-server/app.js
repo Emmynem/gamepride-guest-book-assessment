@@ -57,24 +57,17 @@ app.get("/", function (request, response) {
   (0, _common.SuccessResponse)(response, "Guest Book server activated.");
 }); // Sequelize initialization
 
-var dropAndResync = false;
-
-_models["default"].sequelize.sync({
-  force: dropAndResync
-}).then(function () {
-  (0, _default2.createAdmin)(dropAndResync);
-  if (dropAndResync) _common.logger.warn('Drop and Resync Db with defaults');
+_models["default"].sequelize.sync().then(function () {
+  // creating defaults
+  (0, _default2.createAdmin)();
 });
 
 app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public'))); // Binding routes
 
 (0, _admin["default"])(app);
 (0, _auth["default"])(app);
-(0, _guests["default"])(app); // // set port, listen for requests
-// const PORT = process.env.PORT || 808;
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}.`)
-// })
+(0, _guests["default"])(app); // change timezone for app
 
+process.env.TZ = "Africa/Lagos";
 var _default = app;
 exports["default"] = _default;

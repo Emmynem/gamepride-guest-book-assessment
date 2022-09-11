@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import bycrypt from "bcryptjs";
 import db from "../models";
+import { logger } from '../common';
 
 const { hashSync } = bycrypt;
 const Admin = db.admin;
 
-export function createAdmin (dropAndResync) {
+export function createAdmin () {
 
     const details = {
         unique_id: uuidv4(),
@@ -13,13 +14,18 @@ export function createAdmin (dropAndResync) {
         lastname: "Doe",
         email: "johndoe@example.com",
         password: hashSync("John-Doe-1", 8)
-    }
+    };
 
-    if(dropAndResync) {
-        Admin.create(details).then(res => {
-            return true;
-        }).catch(err => {
-            return false;
-        });
-    }
+    Admin.findOne({ where: { email: details.email } })
+    .then(admin => {
+        if (!admin) {
+            Admin.create(details).then(res => {
+                logger.warn('Added admin defaults');
+            }).catch(err => {
+                logger.error('Error adding admin defaults');
+            });
+        }
+    }).catch(err => {
+        logger.error('Error getting default admin');
+    });
 }
