@@ -18,6 +18,8 @@ const options = cors.CorsOptions = {
         'X-Requested-With',
         'Content-Type',
         'Accept',
+        "Access-Control-Allow-Headers",
+        "x-access-token"
     ],
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
 };
